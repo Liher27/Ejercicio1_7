@@ -34,11 +34,13 @@ public class MainFrame extends JFrame {
 		ReadingPanel impressWindow = new ReadingPanel(pannels);
 		JPanel panel2 = impressWindow.getPanel();
 		pannels.add(panel2);
+		panel2.setVisible(false);
 		frame.getContentPane().add(panel2);
 		
 		WritingPanel writingWindow = new WritingPanel(pannels);
 		JPanel panel3 = writingWindow.getPanel();
 		pannels.add(panel3);
+		panel3.setVisible(false);
 		frame.getContentPane().add(panel3);
 		
 		frame.setVisible(true);

@@ -2,6 +2,7 @@ package main.vista;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -9,16 +10,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import main.logica.FileManager;
+import main.pojo.Message;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainPanel {
 	private JPanel panel = null;
+	public ArrayList<Message> messages = null;
 
 	public MainPanel(ArrayList<JPanel> paneles) {
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 450, 300);
+
+		messages = new ArrayList<Message>();
 
 		JButton btnNewButton = new JButton("Cargar mensajes");
 		btnNewButton.setBounds(10, 41, 144, 46);
@@ -26,7 +32,11 @@ public class MainPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				FileManager messagesController = new FileManager();
-				messagesController.loadMessages();
+				try {
+					messages = messagesController.loadMessages();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel.setLayout(null);
@@ -53,8 +63,8 @@ public class MainPanel {
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				FileManager messagesController = new FileManager();
-				messagesController.saveMessages();
+//				FileManager messagesController = new FileManager();
+//				messagesController.saveMessages(null);
 			}
 		});
 		panel.add(btnNewButton_2);
@@ -70,6 +80,7 @@ public class MainPanel {
 			public void mouseClicked(MouseEvent e) {
 				paneles.get(0).setVisible(false);
 				paneles.get(1).setVisible(true);
+				new ReadingPanel(paneles).readMessages(messages);
 				paneles.get(2).setVisible(false);
 			}
 		});
