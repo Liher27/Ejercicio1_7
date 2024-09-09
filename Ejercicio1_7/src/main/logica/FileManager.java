@@ -19,14 +19,14 @@ public class FileManager extends AbstractFileManager implements FileManagerInter
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(fichero));
 		String line = null;
 
-//		while ((line = bufferedReader.readLine()) != null) {
+		while ((line = bufferedReader.readLine()) != null) {
 //			returnMessage.setFromText(line);
 //			returnMessage.setToText(line);
 //			returnMessage.setHourText(line);
 //			returnMessage.setDateText(line);
 //			returnMessage.setThemeText(line);
 //			returnMessage.setContentText(line);
-//		}
+		}
 		bufferedReader.close();
 		return messages;
 	}
