@@ -12,7 +12,7 @@ public class ReadingPanel {
 	private JPanel panel = null;
 	private DefaultTableModel tableModel = null;
 	public JTable messageTable = null;
-	public ReadingPanel(ArrayList<JPanel> paneles) {
+	public ReadingPanel(ArrayList<JPanel> paneles, ArrayList<Message> messages) {
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 450, 300);

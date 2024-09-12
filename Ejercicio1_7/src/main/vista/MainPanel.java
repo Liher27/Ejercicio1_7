@@ -2,11 +2,13 @@ package main.vista;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import main.logica.FileManager;
@@ -16,15 +18,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainPanel {
-	private JPanel panel = null;
-	public ArrayList<Message> messages = null;
 
-	public MainPanel(ArrayList<JPanel> paneles) {
+	private JPanel panel = null;
+	private FileManager fileManager = null;
+	ArrayList<Message> loadedMessages = null;
+
+	public MainPanel(ArrayList<JPanel> pannels, ArrayList<Message> messages) {
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 450, 300);
 
-		messages = new ArrayList<Message>();
+		fileManager = new FileManager();
 
 		JButton btnNewButton = new JButton("Cargar mensajes");
 		btnNewButton.setBounds(10, 41, 144, 46);
@@ -33,10 +37,14 @@ public class MainPanel {
 			public void mouseClicked(MouseEvent e) {
 				FileManager messagesController = new FileManager();
 				try {
-					messages = messagesController.loadMessages();
+					loadedMessages = messagesController.loadMessages();
+					messages.addAll(loadedMessages);
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar guardar los mensajes.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
+				JOptionPane.showMessageDialog(null, "Se han cargado " + messages.size() + " mensajes.",
+						"Mensajes cargados.", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		panel.setLayout(null);
@@ -47,9 +55,9 @@ public class MainPanel {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				paneles.get(0).setVisible(false);
-				paneles.get(1).setVisible(false);
-				paneles.get(2).setVisible(true);
+				pannels.get(0).setVisible(false);
+				pannels.get(1).setVisible(false);
+				pannels.get(2).setVisible(true);
 			}
 		});
 		panel.add(btnNewButton_1);
@@ -57,33 +65,31 @@ public class MainPanel {
 		JButton btnNewButton_2 = new JButton("Guardar mensajes");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					fileManager.writeMessage(messages);
+					JOptionPane.showMessageDialog(null, "Se han guardado los mensajes.", "OK!",
+							JOptionPane.INFORMATION_MESSAGE);
+				} catch (FileNotFoundException e1) {
+					JOptionPane.showMessageDialog(null, "No se ha encontrado el fichero para escribir los mensajes.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar guardar los mensajes.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnNewButton_2.setBounds(242, 41, 144, 46);
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-//				FileManager messagesController = new FileManager();
-//				messagesController.saveMessages(null);
-			}
-		});
 		panel.add(btnNewButton_2);
 
 		JButton btnNewButton_3 = new JButton("Imprimir mensajes");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pannels.get(0).setVisible(false);
+				pannels.get(1).setVisible(true);
+				pannels.get(2).setVisible(false);
 			}
 		});
 		btnNewButton_3.setBounds(242, 116, 144, 46);
-		btnNewButton_3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				paneles.get(0).setVisible(false);
-				paneles.get(1).setVisible(true);
-				new ReadingPanel(paneles).readMessages(messages);
-				paneles.get(2).setVisible(false);
-			}
-		});
 		panel.add(btnNewButton_3);
 
 		JButton btnNewButton_4 = new JButton("Salir");

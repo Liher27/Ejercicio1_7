@@ -1,12 +1,11 @@
 package main.vista;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import main.pojo.Message;
 
 
 public class MainFrame extends JFrame {
@@ -15,6 +14,8 @@ public class MainFrame extends JFrame {
 	public JFrame frame = null;
 	
 	private ArrayList<JPanel> pannels = null;
+	
+	private ArrayList<Message> messages = null;
 
 	public void inicializar() throws ClassNotFoundException {
 
@@ -25,20 +26,22 @@ public class MainFrame extends JFrame {
 
 		pannels = new ArrayList<JPanel>();
 		
-		MainPanel mainPanel = new MainPanel(pannels);
+		messages = new ArrayList<Message>();
+		
+		MainPanel mainPanel = new MainPanel(pannels, messages);
 		JPanel panel1 = mainPanel.getPanel();
 		panel1.setVisible(true);
 		pannels.add(panel1);
 		frame.getContentPane().add(panel1);
 		
-		ReadingPanel impressWindow = new ReadingPanel(pannels);
-		JPanel panel2 = impressWindow.getPanel();
+		ReadingPanel readingPanel = new ReadingPanel(pannels, messages);
+		JPanel panel2 = readingPanel.getPanel();
 		pannels.add(panel2);
 		panel2.setVisible(false);
 		frame.getContentPane().add(panel2);
 		
-		WritingPanel writingWindow = new WritingPanel(pannels);
-		JPanel panel3 = writingWindow.getPanel();
+		WritingPanel writingPanel = new WritingPanel(pannels, messages);
+		JPanel panel3 = writingPanel.getPanel();
 		pannels.add(panel3);
 		panel3.setVisible(false);
 		frame.getContentPane().add(panel3);

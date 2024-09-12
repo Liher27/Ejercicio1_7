@@ -2,18 +2,16 @@ package main.vista;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import main.logica.FileManager;
 import main.pojo.Message;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
@@ -28,12 +26,12 @@ public class WritingPanel {
 	private String hour = null;
 	private String date = null;
 
-	public WritingPanel(ArrayList<JPanel> pannels) {
+	public WritingPanel(ArrayList<JPanel> pannels, ArrayList<Message> messages) {
 
 		panel = new JPanel();
 		panel.setBounds(0, 0, 450, 300);
 		panel.setLayout(null);
-		
+
 		String months[] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
 				"Octubre", "Noviembre", "Diciembre" };
 
@@ -127,18 +125,20 @@ public class WritingPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				hour = (hourComboBox.getSelectedIndex() + ":" + minuteComboBox.getSelectedIndex());
-				date = (dayTextField.getText() + "de" + monthComboBox.getSelectedObjects().toString() + "del"
+				date = (dayTextField.getText() + " de " + monthComboBox.getSelectedObjects().toString() + " del "
 						+ yearComboBox.getSelectedObjects().toString());
+
 				Message message = new Message(fromTextField.getText(), toTextField.getText(), hour, date,
 						themeTextField.getText(), contentTextField.getText());
-				FileManager fileManager = new FileManager();
-				try {
-					fileManager.writeMessage(message, true);
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				messages.add(message);
+
+				JOptionPane.showMessageDialog(null,
+						"Se ha guardado la informacion del mensaje. Por favor, pulse guardar mensaje en la siguiente ventana.",
+						"OK!", JOptionPane.INFORMATION_MESSAGE);
+
+				pannels.get(0).setVisible(true);
+				pannels.get(1).setVisible(false);
+				pannels.get(2).setVisible(false);
 			}
 		});
 		okBtn.setBounds(248, 231, 69, 23);

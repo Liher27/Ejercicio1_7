@@ -1,7 +1,6 @@
 package main.logica;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,40 +12,50 @@ import main.pojo.Message;
 
 public class FileManager extends AbstractFileManager implements FileManagerInterface {
 
-	public ArrayList <Message> loadMessages() throws IOException {
-		ArrayList <Message> messages = new ArrayList<Message>();
-		File fichero = new File("Messages.txt");
+	public ArrayList<Message> loadMessages() throws IOException {
+		ArrayList<Message> messages = new ArrayList<Message>();
+		File fichero = new File(fileName);
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(fichero));
 		String line = null;
 
 		while ((line = bufferedReader.readLine()) != null) {
-//			returnMessage.setFromText(line);
-//			returnMessage.setToText(line);
-//			returnMessage.setHourText(line);
-//			returnMessage.setDateText(line);
-//			returnMessage.setThemeText(line);
-//			returnMessage.setContentText(line);
+			if (line.startsWith("de ")) {
+				String fromText = line.substring(3).trim();
+				bufferedReader.readLine();
+				String toText = bufferedReader.readLine().substring(5).trim();
+				bufferedReader.readLine();
+				String dateText = bufferedReader.readLine().substring(6).trim();
+				bufferedReader.readLine();
+				String hourText = bufferedReader.readLine().substring(5).trim();
+				bufferedReader.readLine();
+				String themeText = bufferedReader.readLine().substring(7).trim();
+				bufferedReader.readLine();
+				String contentText = bufferedReader.readLine().substring(10).trim();
+				bufferedReader.readLine();
+
+				line = bufferedReader.readLine();
+
+				if (line.startsWith("****************** \n ")) {
+					Message message = new Message(fromText, toText, dateText, hourText, themeText, contentText);
+					messages.add(message);
+				}
+			}
 		}
 		bufferedReader.close();
 		return messages;
 	}
 
-	public void saveMessages(Message message)throws FileNotFoundException, IOException {
-		writeMessage(message, true);
-		
-	}
+	public void writeMessage(ArrayList<Message> menssages) throws FileNotFoundException, IOException {
+		FileWriter fileWriter = new FileWriter(new File(fileName));
 
-	public void writeMessage(Message message, boolean append) throws FileNotFoundException, IOException {
-		BufferedWriter fichero = new BufferedWriter(new FileWriter("Messages.txt"));
-		String[] messageParts = { message.getFromText(), message.getToText(), message.getHourText(),
-				message.getDateText(), message.getThemeText(), message.getContentText()
-
-		};
-		for (int i = 0; i < 5; i++) {
-			fichero.write(messageParts[i]);
+		for (Message message : menssages) {
+			fileWriter.write("de " + message.getFromText() + "\n" + "\n" + "para " + message.getToText() + "\n" + "\n"
+					+ "fecha " + message.getDateText() + "\n" + "\n" + "hora " + message.getHourText() + "\n" + "\n"
+					+ "asunto " + message.getThemeText() + "\n" + "\n" + "contenido " + message.getContentText() + "\n"
+					+ "\n" + "****************** \n");
 		}
-		fichero.write("**************************");
-		fichero.close();
+
+		fileWriter.close();
 	}
 
 	public Message readMessages(ArrayList<Message> messages) throws IOException {
