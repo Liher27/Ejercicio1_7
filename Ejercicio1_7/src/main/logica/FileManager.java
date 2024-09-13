@@ -3,6 +3,7 @@ package main.logica;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -61,8 +62,7 @@ public class FileManager extends AbstractFileManager implements FileManagerInter
 	}
 
 	public void writeMessage(ArrayList<Message> menssages) throws FileNotFoundException, IOException {
-		FileWriter fileWriter = new FileWriter(new File(fileName));
-		
+		FileWriter fileWriter = new FileWriter(new File(fileName), true);
 		for (Message message : menssages) {
 			fileWriter.write("de " + message.getFromText() + "\n" + "\n" + "para " + message.getToText() + "\n" + "\n"
 					+ "fecha " + message.getDateText() + "\n" + "\n" + "hora " + message.getHourText() + "\n" + "\n"
