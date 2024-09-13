@@ -62,7 +62,7 @@ public class FileManager extends AbstractFileManager implements FileManagerInter
 
 	public void writeMessage(ArrayList<Message> menssages) throws FileNotFoundException, IOException {
 		FileWriter fileWriter = new FileWriter(new File(fileName));
-
+		
 		for (Message message : menssages) {
 			fileWriter.write("de " + message.getFromText() + "\n" + "\n" + "para " + message.getToText() + "\n" + "\n"
 					+ "fecha " + message.getDateText() + "\n" + "\n" + "hora " + message.getHourText() + "\n" + "\n"
