@@ -17,30 +17,45 @@ public class FileManager extends AbstractFileManager implements FileManagerInter
 		File fichero = new File(fileName);
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(fichero));
 		String line = null;
+		String fromText = null;
+		String toText = null;
+		String dateText = null;
+		String hourText = null;
+		String themeText = null;
+		String contentText = null;
 
 		while ((line = bufferedReader.readLine()) != null) {
+
 			if (line.startsWith("de ")) {
-				String fromText = line.substring(3).trim();
-				bufferedReader.readLine();
-				String toText = bufferedReader.readLine().substring(5).trim();
-				bufferedReader.readLine();
-				String dateText = bufferedReader.readLine().substring(6).trim();
-				bufferedReader.readLine();
-				String hourText = bufferedReader.readLine().substring(5).trim();
-				bufferedReader.readLine();
-				String themeText = bufferedReader.readLine().substring(7).trim();
-				bufferedReader.readLine();
-				String contentText = bufferedReader.readLine().substring(10).trim();
-				bufferedReader.readLine();
+				fromText = line.substring(3).trim();
+			}
 
-				line = bufferedReader.readLine();
+			if (line.startsWith("para ")) {
+				toText = line.substring(5).trim();
+			}
 
-				if (line.startsWith("****************** \n ")) {
-					Message message = new Message(fromText, toText, dateText, hourText, themeText, contentText);
-					messages.add(message);
-				}
+			if (line.startsWith("fecha ")) {
+				dateText = line.substring(6).trim();
+			}
+
+			if (line.startsWith("hora ")) {
+				hourText = line.substring(5).trim();
+			}
+
+			if (line.startsWith("asunto ")) {
+				themeText = line.substring(7).trim();
+			}
+
+			if (line.startsWith("contenido ")) {
+				contentText = line.substring(10).trim();
+			}
+
+			if (line.startsWith("******************")) {
+				Message message = new Message(fromText, toText, dateText, hourText, themeText, contentText);
+				messages.add(message);
 			}
 		}
+
 		bufferedReader.close();
 		return messages;
 	}
@@ -57,10 +72,4 @@ public class FileManager extends AbstractFileManager implements FileManagerInter
 
 		fileWriter.close();
 	}
-
-	public Message readMessages(ArrayList<Message> messages) throws IOException {
-		return null;
-
-	}
-
 }

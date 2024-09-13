@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
 	public void inicializar() throws ClassNotFoundException {
 
 		frame = new JFrame();
-		frame.setBounds(0, 0, 450, 300);
+		frame.setBounds(0, 0, 700, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 

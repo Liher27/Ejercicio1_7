@@ -29,7 +29,7 @@ public class WritingPanel {
 	public WritingPanel(ArrayList<JPanel> pannels, ArrayList<Message> messages) {
 
 		panel = new JPanel();
-		panel.setBounds(0, 0, 450, 300);
+		panel.setBounds(0, 0, 700, 300);
 		panel.setLayout(null);
 
 		String months[] = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
@@ -62,62 +62,62 @@ public class WritingPanel {
 		panel.add(yearComboBox);
 
 		JLabel timeLbl = new JLabel("Hora");
-		timeLbl.setBounds(8, 35, 46, 14);
+		timeLbl.setBounds(416, 10, 46, 14);
 		panel.add(timeLbl);
 
 		JComboBox<Integer> hourComboBox = new JComboBox<>();
 		for (int hour = 00; hour <= 23; hour++) {
 			hourComboBox.addItem(hour);
 		}
-		hourComboBox.setBounds(54, 31, 54, 22);
+		hourComboBox.setBounds(462, 6, 54, 22);
 		panel.add(hourComboBox);
 
 		JComboBox<Integer> minuteComboBox = new JComboBox<>();
 		for (int minute = 00; minute <= 59; minute++) {
 			minuteComboBox.addItem(minute);
 		}
-		minuteComboBox.setBounds(125, 31, 54, 22);
+		minuteComboBox.setBounds(533, 6, 54, 22);
 		panel.add(minuteComboBox);
 
 		JLabel lblNewLabel = new JLabel(":");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(94, 35, 46, 14);
+		lblNewLabel.setBounds(502, 10, 46, 14);
 		panel.add(lblNewLabel);
 
 		JLabel fromLbl = new JLabel("De");
-		fromLbl.setBounds(8, 79, 46, 14);
+		fromLbl.setBounds(8, 44, 46, 14);
 		panel.add(fromLbl);
 
 		JLabel toLbl = new JLabel("Para");
-		toLbl.setBounds(8, 109, 46, 14);
+		toLbl.setBounds(8, 74, 46, 14);
 		panel.add(toLbl);
 
 		JLabel themeLbl = new JLabel("Asunto");
-		themeLbl.setBounds(8, 134, 46, 14);
+		themeLbl.setBounds(8, 99, 46, 14);
 		panel.add(themeLbl);
 
 		JLabel contentLbl = new JLabel("Contenido");
-		contentLbl.setBounds(8, 159, 53, 14);
+		contentLbl.setBounds(8, 124, 53, 14);
 		panel.add(contentLbl);
 
 		fromTextField = new JTextField();
-		fromTextField.setBounds(71, 76, 226, 20);
+		fromTextField.setBounds(71, 41, 337, 20);
 		panel.add(fromTextField);
 		fromTextField.setColumns(10);
 
 		toTextField = new JTextField();
 		toTextField.setColumns(10);
-		toTextField.setBounds(71, 104, 226, 20);
+		toTextField.setBounds(71, 69, 337, 20);
 		panel.add(toTextField);
 
 		themeTextField = new JTextField();
 		themeTextField.setColumns(10);
-		themeTextField.setBounds(71, 131, 226, 20);
+		themeTextField.setBounds(71, 96, 337, 20);
 		panel.add(themeTextField);
 
 		contentTextField = new JTextField();
 		contentTextField.setColumns(10);
-		contentTextField.setBounds(71, 158, 227, 68);
+		contentTextField.setBounds(71, 124, 337, 118);
 		panel.add(contentTextField);
 
 		JButton okBtn = new JButton("OK");
@@ -125,8 +125,8 @@ public class WritingPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				hour = (hourComboBox.getSelectedIndex() + ":" + minuteComboBox.getSelectedIndex());
-				date = (dayTextField.getText() + " de " + monthComboBox.getSelectedObjects().toString() + " del "
-						+ yearComboBox.getSelectedObjects().toString());
+				date = (dayTextField.getText() + " de " + monthComboBox.getSelectedItem().toString() + " del "
+						+ yearComboBox.getSelectedItem().toString());
 
 				Message message = new Message(fromTextField.getText(), toTextField.getText(), hour, date,
 						themeTextField.getText(), contentTextField.getText());
@@ -141,7 +141,7 @@ public class WritingPanel {
 				pannels.get(2).setVisible(false);
 			}
 		});
-		okBtn.setBounds(248, 231, 69, 23);
+		okBtn.setBounds(489, 236, 69, 23);
 		panel.add(okBtn);
 
 		JButton cancelBtn = new JButton("Cancel");
@@ -153,7 +153,7 @@ public class WritingPanel {
 				pannels.get(2).setVisible(false);
 			}
 		});
-		cancelBtn.setBounds(327, 231, 80, 23);
+		cancelBtn.setBounds(578, 236, 80, 23);
 		panel.add(cancelBtn);
 
 	}

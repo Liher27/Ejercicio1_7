@@ -26,12 +26,12 @@ public class MainPanel {
 	public MainPanel(ArrayList<JPanel> pannels, ArrayList<Message> messages) {
 
 		panel = new JPanel();
-		panel.setBounds(0, 0, 450, 300);
+		panel.setBounds(0, 0, 700, 300);
 
 		fileManager = new FileManager();
 
 		JButton btnNewButton = new JButton("Cargar mensajes");
-		btnNewButton.setBounds(10, 41, 144, 46);
+		btnNewButton.setBounds(115, 55, 144, 46);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -51,7 +51,7 @@ public class MainPanel {
 		panel.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("Añadir mensajes");
-		btnNewButton_1.setBounds(10, 116, 144, 46);
+		btnNewButton_1.setBounds(115, 130, 144, 46);
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -78,7 +78,7 @@ public class MainPanel {
 				}
 			}
 		});
-		btnNewButton_2.setBounds(242, 41, 144, 46);
+		btnNewButton_2.setBounds(423, 55, 144, 46);
 		panel.add(btnNewButton_2);
 
 		JButton btnNewButton_3 = new JButton("Imprimir mensajes");
@@ -89,11 +89,15 @@ public class MainPanel {
 				pannels.get(2).setVisible(false);
 			}
 		});
-		btnNewButton_3.setBounds(242, 116, 144, 46);
+		btnNewButton_3.setBounds(423, 130, 144, 46);
 		panel.add(btnNewButton_3);
 
 		JButton btnNewButton_4 = new JButton("Salir");
-		btnNewButton_4.setBounds(310, 227, 98, 23);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_4.setBounds(546, 223, 98, 23);
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -107,4 +111,5 @@ public class MainPanel {
 	public JPanel getPanel() {
 		return panel;
 	}
+	
 }

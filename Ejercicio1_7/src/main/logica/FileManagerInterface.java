@@ -11,5 +11,4 @@ public interface FileManagerInterface {
 	
 	public void writeMessage(ArrayList<Message> messages) throws FileNotFoundException, IOException;
 	
-	public Message readMessages(ArrayList<Message> messages) throws IOException;
 }
